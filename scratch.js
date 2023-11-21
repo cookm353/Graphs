@@ -49,9 +49,13 @@ class HashMap {
     constructor() {
         this._items = []
     }
-    hash(key) {
-        return Array.from(key).reduce(
-            (accum, char) => accum + char.charCodeAt(), 0)
+    hash(key, arrayLength) {
+        const H_PRIME = 31
+        let hash = Array.from(key).reduce(
+            (accum, char) => accum * H_PRIME + char.charCodeAt(), 0)
+
+        
+        return hash % arrayLength
     }
     set(k, v) {
         const hashedKey = this.hash(k)
@@ -69,3 +73,4 @@ fruit.set("grape", "purple")
 fruit.set("lime", "green")
 
 console.log(fruit.get("orange"))
+console.log(fruit._items)
