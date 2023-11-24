@@ -41,13 +41,27 @@ class Graph {
 
   // this function returns an array of Node values using DFS
   depthFirstSearch(start) {
-    let toVisitStack = [start]
+    const toVisitStack = [start]
     const seen = new Set(toVisitStack)
+    const visitedNodes = []
+
+    while (toVisitStack.length) {
+      let currPerson = toVisitStack.pop()
+      visitedNodes.push(currPerson.value)
+
+      for (let neighbor of currPerson.adjacent) {
+        if (!seen.has(neighbor)) {
+          seen.add(neighbor)
+          toVisitStack.push(neighbor)
+        }
+      }
+    }
+    return visitedNodes
   }
 
   // this function returns an array of Node values using BFS
   breadthFirstSearch(start) {
-    let toVisitQueue = [start]
+    const toVisitQueue = [start]
     const seen = new Set(toVisitQueue)
     const visitedNodes = [start.value]
 
@@ -67,7 +81,3 @@ class Graph {
 }
 
 module.exports = {Graph, Node}
-
-const foo = new Set()
-
-foo.dele
